@@ -45,8 +45,10 @@ public class GameController : MonoBehaviour
         score = 0;
         foreach (Transform item in spawnPoints)
         {
-            SpawnPointList.Add(item.localPoistion);
+            SpawnPointList.Add(item.localPosition);
         }
+
+        InvokeRepeating("GetMole",1f,3f);
     }
 
 
@@ -58,17 +60,24 @@ public class GameController : MonoBehaviour
             Vector3 randomPosition = SpawnPointList[Random.Range(0, SpawnPointList.Count)];
             SpawnPointList.Remove(randomPosition);
 
-            GameObject currentMole = Instantiate(molePrefab,randomPosition,Quaternion.identify,transform);
+            GameObject currentMole = Instantiate(molePrefab,randomPosition,Quaternion.identity,transform);
             currentMole.transform.LookAt(new Vector3(playerController.position.x,currentMole.transform.position.y,playerController.position.z));
             currentMole.SetActive(true);
             MolesInScene.Add(currentMole);
         }
+        else
+        {
+            Debug.Log("Reach Max Moles");
+        }
 
     }
 
-    void DestroyMole()
+    void DestroyMole(GameObject _mole)
     {
-        
+        SpawnPointList.Add(_mole.transform.localPosition);
+        MolesInScene.Remove(_mole);
+        Destroy(_mole);
+        score++;
     }
 
 
