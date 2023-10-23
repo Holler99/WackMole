@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    void DestroyMole(GameObject _mole)
+    public void DestroyMole(GameObject _mole)
     {
         SpawnPointList.Add(_mole.transform.localPosition);
         MolesInScene.Remove(_mole);

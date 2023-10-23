@@ -23,7 +23,7 @@ public class Weapon : MonoBehaviour
         if(other.CompareTag("mole"))
         {
             GameObject mole = other.gameObject;
-            //GameController.instance.DestroyMole(mole);
+            GameController.instance.DestroyMole(mole);
         }
     }
 
