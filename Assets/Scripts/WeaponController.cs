@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
+
     public GameObject Hammer;
     public bool CanAttack = true;
     public float AttackCooldown = 0.5f;
     public bool isAttacking = false;
-
 
     void Update()
     {
@@ -30,8 +30,6 @@ public class WeaponController : MonoBehaviour
         anim.SetTrigger("Attack");
         StartCoroutine(ResetAttackCooldown());
     }
-
-
 
     IEnumerator ResetAttackCooldown()
     {

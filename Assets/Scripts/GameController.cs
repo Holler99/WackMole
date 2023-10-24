@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour
             Vector3 randomPosition = SpawnPointList[Random.Range(0, SpawnPointList.Count)];
             SpawnPointList.Remove(randomPosition);
 
-            GameObject currentMole = Instantiate(molePrefab,randomPosition,Quaternion.identity,transform);
+            GameObject currentMole = Instantiate(molePrefab,randomPosition,Quaternion.identity/*,transform*/);
             currentMole.transform.LookAt(new Vector3(playerController.position.x,currentMole.transform.position.y,playerController.position.z));
             currentMole.SetActive(true);
             MolesInScene.Add(currentMole);
