@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -34,23 +35,62 @@ public class GameController : MonoBehaviour
 
     int score;
 
-    private void Start()
-    {
-        StartFunction();
-    }
+    float durationMole = 3f;
 
 
-    void StartFunction()
+    [Header("Timer Variables")]
+    float timer;
+    bool canCount = false;
+    int minutes;
+    int seconds;
+    string timeStr;
+
+    [Header("UI Variables")]
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI scoreText;
+    public GameObject startButton;
+
+
+
+
+    void Start()
     {
         score = 0;
+        SpawnPointList.Clear();
         foreach (Transform item in spawnPoints)
         {
             SpawnPointList.Add(item.localPosition);
         }
-
-        InvokeRepeating("GetMole",1f,3f);
+        durationMole = 3f;
+        timer = 60f;
+        canCount = true;
+        timeText.text = " 1 : 00";
+        scoreText.text = "";
+        InvokeRepeating("GetMole",1f,durationMole);
     }
 
+    private void Update()
+    {
+        if (timer > 0.0f && canCount)
+        {
+            timer -=Time.deltaTime;
+            minutes = Mathf.FloorToInt(timer /60f);
+            seconds = Mathf.FloorToInt(timer -minutes *60);
+            timeStr = string.Format("{0:0} : {1:00}", minutes, seconds);
+            timeText.text = timeStr;
+        }
+        else if(timer <= 0.0f && canCount)
+        {
+            canCount = false;
+            Finish();
+        }
+    }
+
+    void Finish()
+    {
+        canCount = false;
+        timeText.text = "0 : 00";
+    }
 
     void GetMole()
     {
@@ -60,7 +100,7 @@ public class GameController : MonoBehaviour
             Vector3 randomPosition = SpawnPointList[Random.Range(0, SpawnPointList.Count)];
             SpawnPointList.Remove(randomPosition);
 
-            GameObject currentMole = Instantiate(molePrefab,randomPosition,Quaternion.identity/*,transform*/);
+            GameObject currentMole = Instantiate(molePrefab,randomPosition,Quaternion.identity,transform);
             currentMole.transform.LookAt(new Vector3(playerController.position.x,currentMole.transform.position.y,playerController.position.z));
             currentMole.SetActive(true);
             MolesInScene.Add(currentMole);
@@ -77,7 +117,12 @@ public class GameController : MonoBehaviour
         SpawnPointList.Add(_mole.transform.localPosition);
         MolesInScene.Remove(_mole);
         Destroy(_mole);
-        score++;
+        score += 10;
+        scoreText.text = score.ToString();
+        if (durationMole >= 0.5)
+        {
+            durationMole -= 0.2f;
+        }
     }
 
 
