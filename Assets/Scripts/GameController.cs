@@ -51,10 +51,17 @@ public class GameController : MonoBehaviour
     public GameObject startButton;
 
 
-
-
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    
+    public void StartButtonFunction()
+    {
+        startButton.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         score = 0;
         SpawnPointList.Clear();
         foreach (Transform item in spawnPoints)
@@ -66,7 +73,7 @@ public class GameController : MonoBehaviour
         canCount = true;
         timeText.text = " 1 : 00";
         scoreText.text = "";
-        InvokeRepeating("GetMole",1f,durationMole);
+        InvokeRepeating("GetMole",0f,durationMole);
     }
 
     private void Update()
@@ -88,8 +95,17 @@ public class GameController : MonoBehaviour
 
     void Finish()
     {
+        CancelInvoke("GetMole");
+        startButton.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         canCount = false;
         timeText.text = "0 : 00";
+        foreach (GameObject mole in MolesInScene.ToArray())
+        {
+            MolesInScene.Remove(mole);
+            Destroy(mole);
+        }
     }
 
     void GetMole()
