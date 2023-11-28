@@ -3238,6 +3238,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: enableZoom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: lockCursor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: enableCrouch
       value: 0
       objectReference: {fileID: 0}
@@ -4366,8 +4374,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.42, y: 0.51, z: 0.57}
-  m_Center: {x: 0.19, y: 1.62, z: -1.1}
+  m_Size: {x: 1.46, y: 1.08, z: 1.18}
+  m_Center: {x: -0.01, y: 2.06, z: -0.03}
 --- !u!54 &7957796825751421528
 Rigidbody:
   m_ObjectHideFlags: 0
