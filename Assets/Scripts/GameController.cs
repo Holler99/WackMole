@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameController : MonoBehaviour
@@ -54,6 +55,7 @@ public class GameController : MonoBehaviour
     public void StartButtonFunction()
     {
         startButton.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
         score = 0;
         SpawnPointList.Clear();
         foreach (Transform item in spawnPoints)
@@ -89,6 +91,7 @@ public class GameController : MonoBehaviour
     {
         CancelInvoke("GetMole");
         startButton.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
         canCount = false;
         timeText.text = "0 : 00";
         foreach (GameObject mole in MolesInScene.ToArray())
